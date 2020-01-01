@@ -18,7 +18,7 @@ public class Controler : MonoBehaviour
         {
             int x = Mathf.FloorToInt(Input.mousePosition.x / 100);
             int y = Mathf.FloorToInt(Input.mousePosition.y / 100);
-            Debug.Log("点击" + x + y);
+            Player.MoveToPos(x, y);
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
