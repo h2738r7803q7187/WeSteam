@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     public void MoveLeft()
     {
-        if (transform.localPosition.x <= Const.maxX) return;
+        if (transform.localPosition.x <= Const.minX) return;
         transform.localPosition = new Vector3(transform.localPosition.x - Const.grid, transform.localPosition.y, transform.localPosition.z);
     }
 

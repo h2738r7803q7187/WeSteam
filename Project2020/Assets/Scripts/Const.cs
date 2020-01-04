@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Const : MonoBehaviour
 {
-    public static int sizeX = 100;
-    public static int sizeZ = 100;
-    public static int grid = 10;
+    public static float sizeX = 200;
+    public static float sizeZ = 100;
+    public static float grid = 1;
 
-    public static int maxX = sizeX - grid / 2;
-    public static int maxZ = sizeZ - grid / 2;
-    public static int minX = grid / 2;
-    public static int minZ = grid / 2;
+    public static float maxX = sizeX - grid / 2;
+    public static float maxZ = sizeZ - grid / 2;
+    public static float minX = grid / 2;
+    public static float minZ = grid / 2;
+    public static float startX = 0;
+    public static float startZ = 0;
 }
