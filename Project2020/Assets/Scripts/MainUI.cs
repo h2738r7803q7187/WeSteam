@@ -10,7 +10,7 @@ public class MainUI : MonoBehaviour
     
     public Transform BuildingUI;
     public Transform BuildingContent;
-    public Transform BuildingItem;
+    public BuildingItem BuildingItem;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,9 @@ public class MainUI : MonoBehaviour
         BuildingUI.gameObject.SetActive(true);
         for (int i = 0; i < 10; i++)
         {
-            Instantiate(BuildingItem, BuildingContent).gameObject.SetActive(true);
+            Transform t = Instantiate(BuildingItem.transform, BuildingContent);
+            t.gameObject.SetActive(true);
+            t.GetComponent<BuildingItem>().Init(i);
         }
     }
 

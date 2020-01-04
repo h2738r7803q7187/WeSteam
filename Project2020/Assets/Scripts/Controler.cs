@@ -7,6 +7,7 @@ public class Controler : MonoBehaviour
     // Start is called before the first frame update
     public Player Player;
     public Transform Ground;
+    public static int BuildingID = 0;
     void Start()
     {
         Ground.transform.localScale = new Vector3(Const.sizeX, 0.1f, Const.sizeZ);
@@ -64,7 +65,7 @@ public class Controler : MonoBehaviour
                 transform.localPosition.y,
                 transform.localPosition.z);
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
@@ -76,5 +77,19 @@ public class Controler : MonoBehaviour
                 Player.MoveToPos(x, z);
             }
         }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (BuildingID == 0) return;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                GameObject gameObj = hitInfo.collider.gameObject;
+                int x = Mathf.FloorToInt(hitInfo.point.x / Const.grid);
+                int z = Mathf.FloorToInt(hitInfo.point.z / Const.grid);
+                Debug.Log("放置建筑" + BuildingID + "到" + x + "," + z);
+            }
+        }
     }
+
 }
