@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Controler : MonoBehaviour
 {
     // Start is called before the first frame update
     public Player Player;
     public Transform Ground;
-    public static int BuildingID = 0;
+    public Transform Building;
+    public static int BuildingID = -1;
     void Start()
     {
         Ground.transform.localScale = new Vector3(Const.sizeX, 0.1f, Const.sizeZ);
@@ -79,7 +81,9 @@ public class Controler : MonoBehaviour
         }
         if (Input.GetMouseButtonUp(0))
         {
-            if (BuildingID == 0) return;
+            Debug.Log(BuildingID);
+            Debug.Log(EventSystem.current.IsPointerOverGameObject());
+            if (BuildingID < 0 || EventSystem.current.IsPointerOverGameObject()) return;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
@@ -88,6 +92,11 @@ public class Controler : MonoBehaviour
                 int x = Mathf.FloorToInt(hitInfo.point.x / Const.grid);
                 int z = Mathf.FloorToInt(hitInfo.point.z / Const.grid);
                 Debug.Log("放置建筑" + BuildingID + "到" + x + "," + z);
+                Transform t = Instantiate(Building);
+                t.gameObject.SetActive(true);
+                t.localScale = new Vector3(Const.grid, 0.1f, Const.grid);
+                t.position = new Vector3((x + 0.5f) * Const.grid, 0.01f, (z + 0.5f) * Const.grid);
+                BuildingID = -1;
             }
         }
     }

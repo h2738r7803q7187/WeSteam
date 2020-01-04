@@ -16,6 +16,7 @@ public class BuildingItem : MonoBehaviour
         transform.GetComponent<Button>().onClick.AddListener(delegate ()
         {
             Controler.BuildingID = id;
+            Debug.Log(id);
         });
     }
 }
