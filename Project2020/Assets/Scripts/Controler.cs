@@ -96,6 +96,7 @@ public class Controler : MonoBehaviour
                 t.gameObject.SetActive(true);
                 t.localScale = new Vector3(Const.grid, 0.1f, Const.grid);
                 t.position = new Vector3((x + 0.5f) * Const.grid, 0.01f, (z + 0.5f) * Const.grid);
+                Tools.SetImage3D(t, BuildingItem.path[BuildingID]);
                 BuildingID = -1;
             }
         }
