@@ -23,6 +23,11 @@ public class Controler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            Vector3 p = transform.position;
+            transform.position = new Vector3(p.x, p.y - Input.GetAxis("Mouse ScrollWheel"), p.z);
+        }
         if (Input.GetKeyUp(KeyCode.W))
         {
             Player.MoveUp();
