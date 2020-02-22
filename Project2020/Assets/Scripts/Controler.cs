@@ -18,6 +18,14 @@ public class Controler : MonoBehaviour
         Player.transform.position = new Vector3(Const.grid / 2, 0.01f, Const.grid / 2);
         transform.position = new Vector3(Const.startX, Const.grid * 5, Const.startZ);
         Ground.GetComponent<MeshRenderer>().materials[0].mainTextureScale = new Vector2(Const.sizeX / Const.grid / 4, Const.sizeZ / Const.grid / 4);
+        foreach (Vector2 p in Const.resources)
+        {
+            Transform t = Instantiate(Building);
+            t.gameObject.SetActive(true);
+            t.localScale = new Vector3(Const.grid, 0.1f, Const.grid);
+            t.position = new Vector3((p.x + 0.5f) * Const.grid, 0.01f, (p.y + 0.5f) * Const.grid);
+            Tools.SetImage3D(t, BuildingItem.path[0]);
+        }
     }
 
     // Update is called once per frame
