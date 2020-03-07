@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 
 public class Controler : MonoBehaviour
 {
@@ -12,20 +13,21 @@ public class Controler : MonoBehaviour
     public static int BuildingID = -1;
     void Start()
     {
-        Ground.transform.localScale = new Vector3(Const.sizeX, 0.1f, Const.sizeZ);
-        Ground.transform.position = new Vector3(Const.sizeX / 2, 0, Const.sizeZ / 2);
+        //Ground.transform.localScale = new Vector3(Const.sizeX, 0.1f, Const.sizeZ);
+        //Ground.transform.position = new Vector3(Const.sizeX / 2, 0, Const.sizeZ / 2);
         Player.transform.localScale = new Vector3(Const.grid, 0.1f, Const.grid);
         Player.transform.position = new Vector3(Const.grid / 2, 0.01f, Const.grid / 2);
         transform.position = new Vector3(Const.startX, Const.grid * 5, Const.startZ);
-        Ground.GetComponent<MeshRenderer>().materials[0].mainTextureScale = new Vector2(Const.sizeX / Const.grid / 4, Const.sizeZ / Const.grid / 4);
-        foreach (Vector2 p in Const.resources)
+        //Ground.GetComponent<MeshRenderer>().materials[0].mainTextureScale = new Vector2(Const.sizeX / Const.grid / 4, Const.sizeZ / Const.grid / 4);
+        Ground.GetComponent<MeshRenderer>().materials[0].mainTextureScale = new Vector2(Ground.transform.localScale.x/4, Ground.transform.localScale.z/4);
+        /*foreach (Vector2 p in Const.resources)
         {
             Transform t = Instantiate(Building);
             t.gameObject.SetActive(true);
             t.localScale = new Vector3(Const.grid, 0.1f, Const.grid);
-            t.position = new Vector3((p.x + 0.5f) * Const.grid, 0.01f, (p.y + 0.5f) * Const.grid);
+            t.position = new Vector3((p.x + 0.5f) * Const.grid, 0.1f, (p.y + 0.5f) * Const.grid);
             Tools.SetImage3D(t, BuildingItem.path[0]);
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -86,10 +88,14 @@ public class Controler : MonoBehaviour
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
-                GameObject gameObj = hitInfo.collider.gameObject;
-                int x = Mathf.FloorToInt(hitInfo.point.x / Const.grid);
-                int z = Mathf.FloorToInt(hitInfo.point.z / Const.grid);
-                Player.MoveToPos(x, z);
+                //GameObject gameObj = hitInfo.collider.gameObject;
+                //int x = Mathf.FloorToInt(hitInfo.point.x / Const.grid);
+                //int z = Mathf.FloorToInt(hitInfo.point.z / Const.grid);
+                NavMeshPath path = new NavMeshPath();
+                NavMeshAgent agent = Player.GetComponent<NavMeshAgent>();
+                agent.CalculatePath(hitInfo.point,path);
+                agent.SetPath(path);
+                //Player.MoveToPos(x, z);
             }
         }
         if (Input.GetMouseButtonUp(0))
