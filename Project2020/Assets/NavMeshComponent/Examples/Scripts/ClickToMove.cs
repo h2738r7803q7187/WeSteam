@@ -19,7 +19,12 @@ public class ClickToMove : MonoBehaviour
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray.origin, ray.direction, out m_HitInfo))
-                m_Agent.destination = m_HitInfo.point;
+            {
+                Vector2 grid = HexagonGrid.Real2Grid(m_HitInfo.point.x, m_HitInfo.point.z);
+                Debug.Log(grid);
+                Vector2 pos = HexagonGrid.Grid2Real(grid);
+                m_Agent.destination = new Vector3(pos.x, 0.1f, pos.y);
+            }
         }
     }
 }
