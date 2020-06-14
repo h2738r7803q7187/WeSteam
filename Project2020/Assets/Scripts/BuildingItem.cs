@@ -30,7 +30,7 @@ public class BuildingItem : MonoBehaviour
         transform.GetComponent<Button>().onClick.AddListener(delegate ()
         {
             Controler.BuildingID = id;
-            Debug.Log(id);
+            Debug.Log("选取建筑" + id);
         });
     }
 }
